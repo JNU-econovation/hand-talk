@@ -58,7 +58,7 @@ class UserControllerTest {
                    .password("password")
                    .nickname("nickname")
                    .profile("profile")
-                   .isEmailAuthorized(true)
+                   .emailAuthorized(true)
                    .build();
     }
 

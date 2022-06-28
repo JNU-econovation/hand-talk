@@ -16,15 +16,15 @@ public class User {
     private String password;
     private String nickname;
     private String profile;
-    private boolean isEmailAuthorized;
+    private boolean emailAuthorized;
 
     @Builder
-    public User(String email, String password, String nickname, String profile, boolean isEmailAuthorized) {
+    public User(String email, String password, String nickname, String profile, boolean emailAuthorized) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.profile = profile;
-        this.isEmailAuthorized = isEmailAuthorized;
+        this.emailAuthorized = emailAuthorized;
     }
 
     public User() {
