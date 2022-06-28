@@ -27,7 +27,14 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        user = new User("email1", "password1", "name1", "profile1", false);
+        user = User.builder()
+                   .email("email1")
+                   .password("password1")
+                   .nickname("name1")
+                   .profile("profile1")
+                   .emailAuthorized(false)
+                   .build();
+
         savedUser = userRepository.save(user);
     }
 
@@ -45,7 +52,13 @@ class UserServiceTest {
     void duplicatedEmailsignUp() {
         //given
         //when
-        User duplicatedUser = new User("email1", "password1", "name1", "profile1", false);
+        User duplicatedUser = User.builder()
+                                  .email("email1")
+                                  .password("password1")
+                                  .nickname("name1")
+                                  .profile("profile1")
+                                  .emailAuthorized(false)
+                                  .build();
 
         //then
         assertThatThrownBy(() -> userService.save(duplicatedUser)).isInstanceOf(RuntimeException.class);
