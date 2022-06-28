@@ -30,4 +30,8 @@ public class User {
     public User() {
 
     }
+
+    public boolean canLogin(User user) {
+        return email.equals(user.getEmail()) && password.equals(user.getPassword());
+    }
 }
