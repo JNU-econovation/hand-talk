@@ -58,7 +58,23 @@ class UserControllerTest {
                    .password("password")
                    .nickname("nickname")
                    .profile("profile")
-                   .isEmailAuthorized(true)
+                   .emailAuthorized(true)
                    .build();
+    }
+
+    @Test
+    @DisplayName("사용자 로그인이 잘 되는지 테스트")
+    void login() throws Exception {
+        //given
+        User user = createUser();
+        when(userService.login(any())).thenReturn(user);
+
+        //when
+        //then
+        mockMvc.perform(post("/users/login")
+                                .param("email", user.getEmail())
+                                .param("password", user.getPassword()))
+               .andDo(print())
+               .andExpect(status().isOk());
     }
 }

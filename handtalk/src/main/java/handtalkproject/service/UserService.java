@@ -6,6 +6,8 @@ import handtalkproject.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 @Slf4j
 public class UserService {
@@ -23,5 +25,13 @@ public class UserService {
             throw new DuplicatedEmailException(DUPLICATED_EMAIL_MESSAGE);
         }
         return userRepository.save(user);
+    }
+
+    public User login(User user) {
+        return userRepository.findAll()
+                      .stream()
+                      .filter(u -> u.canLogin(user))
+                      .findFirst()
+                      .orElseThrow(NoSuchElementException::new);
     }
 }
