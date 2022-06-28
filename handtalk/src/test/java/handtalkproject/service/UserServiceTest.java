@@ -1,5 +1,6 @@
 package handtalkproject.service;
 
+import handtalkproject.domain.dto.UserSignInDto;
 import handtalkproject.domain.entity.User;
 import handtalkproject.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +23,12 @@ class UserServiceTest {
     UserService userService;
 
     private User user;
+    private User savedUser;
 
     @BeforeEach
     void setUp() {
-        user = new User("userId1", "password1", "name1", "email1", false);
+        user = new User("email1", "password1", "name1", "profile1", false);
+        savedUser = userRepository.save(user);
     }
 
     @Test
@@ -33,8 +36,6 @@ class UserServiceTest {
     void signUp() {
         //given
         //when
-        User savedUser = userService.save(user);
-
         //then
         assertThat(user).isEqualTo(savedUser);
     }
@@ -43,12 +44,28 @@ class UserServiceTest {
     @DisplayName("이미 존재하는 이메일로 회원가입을 시도할 때 회원가입이 안되도록 하는지 테스트")
     void duplicatedEmailsignUp() {
         //given
-        userService.save(user);
-
         //when
-        User duplicatedUser = new User("userId1", "password1", "name1", "email1", false);
+        User duplicatedUser = new User("email1", "password1", "name1", "profile1", false);
 
         //then
         assertThatThrownBy(() -> userService.save(duplicatedUser)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
+    @DisplayName("로그인이 잘 되는지 테스트")
+    void login() {
+        //given
+        UserSignInDto userSignInDto = UserSignInDto.builder()
+                                                   .email("email1")
+                                                   .password("password1")
+                                                   .build();
+
+        User inputUser = userSignInDto.toEntity();
+
+        //when
+        User loginUser = userService.login(inputUser);
+
+        //then
+        assertThat(savedUser).isEqualTo(loginUser);
     }
 }
