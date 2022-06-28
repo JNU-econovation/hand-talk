@@ -1,5 +1,6 @@
 package handtalkproject.controller;
 
+import handtalkproject.domain.dto.UserSignInDto;
 import handtalkproject.domain.dto.UserSignUpDto;
 import handtalkproject.domain.entity.User;
 import handtalkproject.exception.KeyNotMatchedException;
@@ -55,5 +56,12 @@ public class UserController {
             return userService.save(userSignUpDto.toEntity()); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환
         }
         throw new KeyNotMatchedException();
+    }
+
+    @ApiOperation(value = "로그인", notes = "로그인 요청")
+    @ApiImplicitParam(name = "userSignInDto", value = "이메일, 패스워드 입력 값", required = true)
+    @PostMapping("/login")
+    public User login(UserSignInDto userSignInDto) {
+        return userService.login(userSignInDto.toEntity());
     }
 }
