@@ -11,11 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -26,11 +22,13 @@ import java.io.UnsupportedEncodingException;
 @Slf4j
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final EmailService emailService;
 
-    @Autowired
-    private EmailService emailService;
+    public UserController(UserService userService, EmailService emailService) {
+        this.userService = userService;
+        this.emailService = emailService;
+    }
 
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
@@ -51,7 +49,7 @@ public class UserController {
             @ApiImplicitParam(name = "userSignUpDto", value = "이메일, 패스워드, 닉네임, 프로필, 이메일 인증 여부", required = true),
     })
     @PostMapping("/signup")
-    public User create(UserSignUpDto userSignUpDto) throws KeyNotMatchedException {
+    public User register(UserSignUpDto userSignUpDto) throws KeyNotMatchedException {
         if (userSignUpDto.isEmailAuthorized()) {
             return userService.save(userSignUpDto.toEntity()); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환
         }
