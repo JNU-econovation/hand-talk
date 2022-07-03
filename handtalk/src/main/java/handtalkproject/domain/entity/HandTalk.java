@@ -9,7 +9,7 @@ public class HandTalk {
     @Column(name = "handtalk_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
     private Day day;
 
