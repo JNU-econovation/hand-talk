@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -26,11 +27,16 @@ import java.io.UnsupportedEncodingException;
 @Slf4j
 public class UserController {
 
+    private static final String USER_SESSION_KEY = "loginedUser";
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private HttpSession session;
 
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
@@ -62,6 +68,9 @@ public class UserController {
     @ApiImplicitParam(name = "userSignInDto", value = "이메일, 패스워드 입력 값", required = true)
     @PostMapping("/login")
     public User login(UserSignInDto userSignInDto) {
+        if (session.getAttribute(USER_SESSION_KEY) == null) {
+            session.setAttribute(USER_SESSION_KEY, userSignInDto);
+        }
         return userService.login(userSignInDto.toEntity());
     }
 }
