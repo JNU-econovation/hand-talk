@@ -33,6 +33,8 @@ dependencies {
 	//mysql
 	implementation 'mysql:mysql-connector-java'
 
+	//aws
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.3.1'
 }
 
 tasks.named('test') {
