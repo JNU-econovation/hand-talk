@@ -1,6 +1,7 @@
 package handtalkproject.controller;
 
 import handtalkproject.domain.entity.User;
+import handtalkproject.service.AwsS3Service;
 import handtalkproject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,11 +10,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.io.FileInputStream;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,6 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
     @Mock
     UserService userService;
+
+    @Mock
+    AwsS3Service awsS3Service;
 
     @InjectMocks
     UserController userController;
@@ -39,10 +47,14 @@ class UserControllerTest {
     void create() throws Exception {
         User user = createUser();
 
+        when(awsS3Service.uploadProfile(any())).thenReturn("testUrl");
         when(userService.save(any()))
                 .thenReturn(user);
 
-        mockMvc.perform(post("/users/signup")
+        MockMultipartFile image = new MockMultipartFile("files", "maenji.jpeg", "image/jpeg", new FileInputStream("/Users/chaesang-yeob/Desktop/hand-talk-be/handtalk/src/main/resources/maenji.png"));
+
+        mockMvc.perform(multipart("/users/signup")
+                                .file(image)
                                 .param("email", user.getEmail())
                                 .param("password", user.getPassword())
                                 .param("nickname", user.getNickname())
