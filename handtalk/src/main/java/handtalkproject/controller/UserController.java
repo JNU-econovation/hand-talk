@@ -56,24 +56,21 @@ public class UserController {
     }
 
     @ApiOperation(value = "회원가입", notes = "최종적인 회원가입 요청")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "userSignUpDto", value = "이메일, 패스워드, 닉네임, 프로필, 이메일 인증 여부", required = true),
-    })
+    @ApiImplicitParams( {
+            @ApiImplicitParam(name = "profile", value = "사용자 프로필 사진 url 주소"),
+            @ApiImplicitParam(name = "profileImage", value = "사용자 프로필 사진 파일")
+    } )
     @PostMapping("/signup")
-    public User create(UserSignUpDto userSignUpDto) throws KeyNotMatchedException {
+    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) throws KeyNotMatchedException {
+        String imageUrl = awsS3Service.uploadProfile(profileImageFile);
+        userSignUpDto.setProfile(imageUrl);
         if (userSignUpDto.isEmailAuthorized()) {
             return userService.save(userSignUpDto.toEntity()); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환
         }
         throw new KeyNotMatchedException(KEY_NOT_MATCHED_MESSAGE);
     }
 
-    @PostMapping("/profile")
-    public String uploadProfile(MultipartFile multipartFile) {
-        return awsS3Service.uploadProfile(multipartFile);
-    }
-
     @ApiOperation(value = "로그인", notes = "로그인 요청")
-    @ApiImplicitParam(name = "userSignInDto", value = "이메일, 패스워드 입력 값", required = true)
     @PostMapping("/login")
     public User login(UserSignInDto userSignInDto) {
         if (session.getAttribute(USER_SESSION_KEY) == null) {
