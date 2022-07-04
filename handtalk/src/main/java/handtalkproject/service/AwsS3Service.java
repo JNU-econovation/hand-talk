@@ -26,15 +26,15 @@ public class AwsS3Service {
     @Value("{cloud.aws.s3.bucket}")
     private String bucketName;
 
-    public String uploadProfile(MultipartFile multipartFile) {
-        validateFileExists(multipartFile);
+    public String uploadProfile(MultipartFile profileImageFile) {
+        validateFileExists(profileImageFile);
 
-        String fileName = CommonUtils.buildFileName(multipartFile.getOriginalFilename());
+        String fileName = CommonUtils.buildFileName(profileImageFile.getOriginalFilename());
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(multipartFile.getContentType());
+        objectMetadata.setContentType(profileImageFile.getContentType());
 
-        try (InputStream inputStream = multipartFile.getInputStream()) {
+        try (InputStream inputStream = profileImageFile.getInputStream()) {
             amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, objectMetadata)
                                              .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
@@ -44,8 +44,8 @@ public class AwsS3Service {
         return amazonS3Client.getUrl(bucketName, fileName).toString();
     }
 
-    private void validateFileExists(MultipartFile multipartFile) {
-        if (multipartFile.isEmpty()) {
+    private void validateFileExists(MultipartFile profileImageFile) {
+        if (profileImageFile.isEmpty()) {
             throw new EmptyFileException(EMPTY_FILE_MESSAGE);
         }
     }
