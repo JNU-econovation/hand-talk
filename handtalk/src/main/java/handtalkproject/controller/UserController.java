@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,19 +28,15 @@ import java.io.UnsupportedEncodingException;
 @RequestMapping("/users")
 @Api(value = "사용자와 관련된 기능을 수행하는 컨트롤러")
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
     private static final String KEY_NOT_MATCHED_MESSAGE = "이메일 인증번호가 일치하지 않습니다.";
 
     private static final String USER_SESSION_KEY = "loginedUser";
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private AwsS3Service awsS3Service;
+    private final UserService userService;
+    private final EmailService emailService;
+    private final AwsS3Service awsS3Service;
 
     @Autowired
     private HttpSession session;
