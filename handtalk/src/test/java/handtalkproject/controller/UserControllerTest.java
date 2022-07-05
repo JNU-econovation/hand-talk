@@ -14,9 +14,11 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.servlet.http.HttpSession;
 import java.io.FileInputStream;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,6 +35,9 @@ class UserControllerTest {
 
     @InjectMocks
     UserController userController;
+
+    @Mock
+    HttpSession session;
 
     MockMvc mockMvc;
 
@@ -80,6 +85,9 @@ class UserControllerTest {
         //given
         User user = createUser();
         when(userService.login(any())).thenReturn(user);
+
+        when(session.getAttribute(any())).thenReturn(null);
+        doNothing().when(session).setAttribute(any(), any());
 
         //when
         //then
