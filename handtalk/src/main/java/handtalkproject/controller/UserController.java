@@ -40,6 +40,7 @@ public class UserController {
 
     private final HttpSession session;
 
+
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
     @PostMapping("/email-auth")
@@ -60,9 +61,11 @@ public class UserController {
             @ApiImplicitParam(name = "profileImage", value = "사용자 프로필 사진 파일")
     } )
     @PostMapping("/signup")
+
     public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) throws KeyNotMatchedException {
         String imageUrl = awsS3Service.uploadProfile(profileImageFile);
         userSignUpDto.setProfile(imageUrl);
+
         if (userSignUpDto.isEmailAuthorized()) {
             return userService.save(userSignUpDto.toEntity()); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환
         }

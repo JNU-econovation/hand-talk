@@ -1,5 +1,6 @@
 package handtalkproject.controller;
 
+import handtalkproject.domain.dto.UserSignUpDto;
 import handtalkproject.domain.entity.User;
 import handtalkproject.service.AwsS3Service;
 import handtalkproject.service.UserService;
@@ -51,10 +52,17 @@ class UserControllerTest {
     @DisplayName("사용자 회원가입이 잘 되는지 테스트")
     void create() throws Exception {
         User user = createUser();
+        UserSignUpDto userSignUpDto = UserSignUpDto.builder()
+                                                   .email("saint6839@gmail.com")
+                                                   .password("password")
+                                                   .nickname("nickname")
+                                                   .profile("profile")
+                                                   .emailAuthorized(true)
+                                                   .build();
 
         when(awsS3Service.uploadProfile(any())).thenReturn("testUrl");
         when(userService.save(any()))
-                .thenReturn(user);
+                .thenReturn(userSignUpDto.toEntity());
 
         MockMultipartFile image = new MockMultipartFile("files", "maenji.jpeg", "image/jpeg", new FileInputStream("/Users/chaesang-yeob/Desktop/hand-talk-be/handtalk/src/main/resources/maenji.png"));
 
@@ -63,6 +71,7 @@ class UserControllerTest {
                                 .param("email", user.getEmail())
                                 .param("password", user.getPassword())
                                 .param("nickname", user.getNickname())
+                                .param("profile", user.getProfile())
                                 .param("emailAuthorized", String.valueOf(user.isEmailAuthorized()))
                )
                .andDo(print())
