@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class HandTalk {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "handtalk_id", nullable = false)
     private Long id;
 

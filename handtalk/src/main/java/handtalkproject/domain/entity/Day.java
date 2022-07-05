@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Day {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "day_id", nullable = false)
     private Long id;
 
