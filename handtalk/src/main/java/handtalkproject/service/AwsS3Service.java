@@ -103,9 +103,6 @@ public class AwsS3Service {
             ImageIO.write(imageNoAlpha, fileFormatName, baos);
             baos.flush();
 
-            MockMultipartFile resizedFile = new MockMultipartFile(fileName, baos.toByteArray());
-            BufferedImage resizedImage = ImageIO.read(resizedFile.getInputStream());
-
             return new MockMultipartFile(fileName, baos.toByteArray());
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 리사이즈에 실패했습니다.");
