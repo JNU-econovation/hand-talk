@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,17 +56,14 @@ public class UserController {
 
     @ApiOperation(value = "회원가입", notes = "최종적인 회원가입 요청")
     @ApiImplicitParams( {
-            @ApiImplicitParam(name = "profile", value = "사용자 프로필 사진 url 주소"),
             @ApiImplicitParam(name = "profileImage", value = "사용자 프로필 사진 파일")
     } )
     @PostMapping("/signup")
-
     public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) throws KeyNotMatchedException {
         String imageUrl = awsS3Service.uploadProfile(profileImageFile);
-        userSignUpDto.setProfile(imageUrl);
 
         if (userSignUpDto.isEmailAuthorized()) {
-            return userService.save(userSignUpDto.toEntity()); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환
+            return userService.save(userSignUpDto.toEntity(imageUrl)); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환, 이미지 주소 엔티티에 저장
         }
         throw new KeyNotMatchedException(KEY_NOT_MATCHED_MESSAGE);
     }

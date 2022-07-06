@@ -11,27 +11,25 @@ public class UserSignUpDto {
     private String email;
     private String password;
     private String nickname;
-    private String profile;
     private boolean emailAuthorized;
 
     public UserSignUpDto() {
     }
 
     @Builder
-    public UserSignUpDto(String email, String password, String nickname, String profile, boolean emailAuthorized) {
+    public UserSignUpDto(String email, String password, String nickname, boolean emailAuthorized) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
-        this.profile = profile;
         this.emailAuthorized = emailAuthorized;
     }
 
-    public User toEntity() {
+    public User toEntity(String imageUrl) {
         return User.builder()
                    .email(email)
                    .password(password)
                    .nickname(nickname)
-                   .profile(profile)
+                   .profile(imageUrl)
                    .emailAuthorized(true)
                    .build();
     }
