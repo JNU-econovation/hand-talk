@@ -1,8 +1,13 @@
 package handtalkproject.domain.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class HandTalk {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,13 +18,9 @@ public class HandTalk {
     @JoinColumn(name = "day_id")
     private Day day;
 
-    public Long getId() {
-        return id;
-    }
+    private String videoUrl;
 
-    public void setDay(Day day) {
-        this.day = day;
-    }
+    private String handtalkValue;
 
     public boolean isDay(int day) {
         return this.day.getDay() == day;
