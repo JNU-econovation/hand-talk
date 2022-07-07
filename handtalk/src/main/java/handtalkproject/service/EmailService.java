@@ -1,5 +1,6 @@
 package handtalkproject.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
     public static final String ePw = createKey();
 
