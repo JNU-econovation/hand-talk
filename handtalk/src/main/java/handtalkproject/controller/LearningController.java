@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class LearningController {
 
     @ApiOperation(value = "Day에 해당하는 수어 동작과 단어를 반환")
     @ApiImplicitParam(name = "day", value = "사용자가 선택한 day 값")
-    @GetMapping("/learning")
-    public List<HandTalk> getLearningData(int day) {
+    @GetMapping("/learning/{day}")
+    public List<HandTalk> getLearningData(@PathVariable int day) {
         return learningService.getLearningData(day);
     }
 }
