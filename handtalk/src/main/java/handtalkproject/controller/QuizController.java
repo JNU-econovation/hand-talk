@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RestController
@@ -37,6 +38,15 @@ public class QuizController {
     public void saveWrongQuizHandTalk(WrongQuizHandTalkDto wrongQuizHandTalkDto) {
         if(getLoginedUser() != null) {
             quizService.saveWrongQuizHandTalk(getLoginedUser(), wrongQuizHandTalkDto.toEntity());
+        } else {
+            throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
+        }
+    }
+
+    @GetMapping("/quiz/wrong/{day}")
+    public List<WrongQuizHandTalk> showAllWrongQuizHandtalks(@PathVariable int day) {
+        if(getLoginedUser() != null) {
+            return quizService.showAllWrongQuizHandtalks(getLoginedUser(), day);
         }
         throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
     }

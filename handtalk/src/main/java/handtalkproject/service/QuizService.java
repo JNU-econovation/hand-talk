@@ -50,4 +50,15 @@ public class QuizService {
                                                                .build();
         wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
     }
+
+    public List<WrongQuizHandTalk> showAllWrongQuizHandtalks(User loginedUser, int day) {
+        return wrongQuizHandTalkRepository.findAll()
+                                                                     .stream()
+                                                                     .filter(wrongQuizHandTalk -> wrongQuizHandTalk.isSameUser(loginedUser))
+                                                                     .filter(wrongQuizHandTalk -> wrongQuizHandTalk.getHandTalk()
+                                                                                                                   .isDay(day))
+                                                                     .collect(Collectors.toList());
+
+
+    }
 }
