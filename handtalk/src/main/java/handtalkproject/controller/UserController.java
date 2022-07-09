@@ -7,6 +7,7 @@ import handtalkproject.exception.KeyNotMatchedException;
 import handtalkproject.service.AwsS3Service;
 import handtalkproject.service.EmailService;
 import handtalkproject.service.UserService;
+import handtalkproject.utils.UserSessionUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,8 +31,6 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 public class UserController {
     private static final String KEY_NOT_MATCHED_MESSAGE = "이메일 인증번호가 일치하지 않습니다.";
-
-    private static final String USER_SESSION_KEY = "loginedUser";
 
     private final UserService userService;
     private final EmailService emailService;
@@ -71,8 +70,8 @@ public class UserController {
     @ApiOperation(value = "로그인", notes = "로그인 요청")
     @PostMapping("/login")
     public User login(UserSignInDto userSignInDto) {
-        if (session.getAttribute(USER_SESSION_KEY) == null) {
-            session.setAttribute(USER_SESSION_KEY, userSignInDto);
+        if (session.getAttribute(UserSessionUtils.USER_SESSION_KEY) == null) {
+            session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userSignInDto);
         }
         return userService.login(userSignInDto.toEntity());
     }
