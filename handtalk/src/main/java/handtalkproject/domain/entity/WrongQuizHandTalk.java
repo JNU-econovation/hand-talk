@@ -15,11 +15,11 @@ public class WrongQuizHandTalk {
     @Column(name = "wrongQuizHandTalk_id", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "handtalk_id")
     private HandTalk handTalk;
 
@@ -30,5 +30,9 @@ public class WrongQuizHandTalk {
     public WrongQuizHandTalk(User user, HandTalk handTalk) {
         this.user = user;
         this.handTalk = handTalk;
+    }
+
+    public boolean isSameUser(User user) {
+        return this.user.getId() == user.getId();
     }
 }
