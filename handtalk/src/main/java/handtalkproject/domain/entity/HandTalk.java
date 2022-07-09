@@ -35,9 +35,6 @@ public class HandTalk {
         this.handtalkValue = handtalkValue;
     }
 
-    @Builder
-
-
     public HandTalk() {
 
     }
