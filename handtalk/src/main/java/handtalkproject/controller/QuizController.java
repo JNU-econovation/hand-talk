@@ -2,7 +2,6 @@ package handtalkproject.controller;
 
 import handtalkproject.domain.dto.QuizMultipleChoiceDto;
 import handtalkproject.domain.dto.WrongQuizHandTalkDto;
-import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.domain.entity.User;
 import handtalkproject.domain.entity.WrongQuizHandTalk;
 import handtalkproject.exception.NoAuthenticationException;
@@ -26,7 +25,7 @@ public class QuizController {
     private final QuizService quizService;
     private final HttpSession session;
 
-    @GetMapping("/quiz/{day}")
+    @GetMapping("/quiz/hand-to-korean/{day}")
     public QuizMultipleChoiceDto showMultipleChoice(@PathVariable int day) {
         if(getLoginedUser() != null) {
             return quizService.showQuizMultipleChoices(day);
@@ -34,7 +33,7 @@ public class QuizController {
         throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
     }
 
-    @PostMapping("/quiz/wrong")
+    @PostMapping("/quiz/hand-to-korean/wrong")
     public void saveWrongQuizHandTalk(WrongQuizHandTalkDto wrongQuizHandTalkDto) {
         if(getLoginedUser() != null) {
             quizService.saveWrongQuizHandTalk(getLoginedUser(), wrongQuizHandTalkDto.toEntity());
@@ -43,7 +42,7 @@ public class QuizController {
         }
     }
 
-    @GetMapping("/quiz/wrong/{day}")
+    @GetMapping("/quiz/hand-to-korean/wrong/{day}")
     public List<WrongQuizHandTalk> showAllWrongQuizHandtalks(@PathVariable int day) {
         if(getLoginedUser() != null) {
             return quizService.showAllWrongQuizHandtalks(getLoginedUser(), day);

@@ -78,7 +78,7 @@ class QuizControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/quiz/{day}", 1))
+        mockMvc.perform(get("/quiz/hand-to-korean/{day}", 1))
                .andDo(print())
                .andExpect(status().isOk());
     }
@@ -92,7 +92,7 @@ class QuizControllerTest {
                    .saveWrongQuizHandTalk(any(), any());
         //when
         //then
-        mockMvc.perform(post("/quiz/wrong")
+        mockMvc.perform(post("/quiz/hand-to-korean/wrong")
                                 .param("day", String.valueOf(1))
                                 .param("videoUrl", "videoUrl")
                                 .param("handtalkValue", "handtalkValue"))
@@ -112,7 +112,7 @@ class QuizControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/quiz/wrong/{day}", 1))
+        mockMvc.perform(get("/quiz/hand-to-korean/wrong/{day}", 1))
                .andDo(print())
                .andExpect(status().isOk());
 
