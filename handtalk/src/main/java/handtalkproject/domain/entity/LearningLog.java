@@ -1,12 +1,17 @@
 package handtalkproject.domain.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 public class LearningLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "studylog_id", nullable = false)
+    @Column(name = "learning_id", nullable = false)
     private Long id;
 
     @ManyToOne
@@ -16,16 +21,4 @@ public class LearningLog {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "day_id")
     private Day day;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

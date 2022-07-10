@@ -19,6 +19,14 @@ public class Day {
     @OneToMany(mappedBy = "day")
     private List<LearningLog> learningLogs = new ArrayList<>();
 
+
+    public Day() {
+    }
+
+    public Day(int day) {
+        this.day = day;
+    }
+
     public Long getId() {
         return id;
     }

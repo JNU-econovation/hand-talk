@@ -27,18 +27,18 @@ class LearningServiceTest {
     @DisplayName("day에 해당하는 수어들을 조회했을 떄 잘 찾아와지는지 테스트")
     void getLearningData() {
         //given
-        HandTalk handTalk = new HandTalk();
-        Day day = new Day();
-        day.setDay(1);
-        handTalk.setDay(day);
+        Day day = new Day(1);
+        HandTalk handtalk = HandTalk.builder()
+                                 .day(day)
+                                 .build();
 
-        HandTalk handTalk2 = new HandTalk();
-        Day day2 = new Day();
-        day2.setDay(1);
-        handTalk2.setDay(day2);
+        Day day2 = new Day(1);
+        HandTalk handtalk2 = HandTalk.builder()
+                                    .day(day2)
+                                    .build();
 
-        handTalkRepository.save(handTalk);
-        handTalkRepository.save(handTalk2);
+        handTalkRepository.save(handtalk);
+        handTalkRepository.save(handtalk2);
 
         //when
         List<HandTalk> learningData = learningService.getLearningData(1);
