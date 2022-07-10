@@ -80,7 +80,8 @@ class QuizServiceTest {
         quizService.saveWrongQuizHandTalk(user, handTalk);
 
         //then
-        WrongQuizHandTalk result = wrongQuizHandTalkRepository.getById(1L);
+        WrongQuizHandTalk result = wrongQuizHandTalkRepository.findById(1L)
+                                                              .get();
 
         assertThat(result.getHandTalk()).isEqualTo(handTalk);
     }
