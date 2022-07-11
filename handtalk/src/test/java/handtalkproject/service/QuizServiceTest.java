@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -80,7 +81,7 @@ class QuizServiceTest {
         quizService.saveWrongQuizHandTalk(user, handTalk);
 
         //then
-        WrongQuizHandTalk result = wrongQuizHandTalkRepository.findById(1L)
+        WrongQuizHandTalk result = wrongQuizHandTalkRepository.findByHandTalk(handTalk)
                                                               .get();
 
         assertThat(result.getHandTalk()).isEqualTo(handTalk);
