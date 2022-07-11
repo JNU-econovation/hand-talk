@@ -31,7 +31,6 @@ class UserServiceTest {
                    .email("email1")
                    .password("password1")
                    .nickname("name1")
-                   .profile("profile1")
                    .emailAuthorized(false)
                    .build();
 
@@ -56,7 +55,6 @@ class UserServiceTest {
                                   .email("email1")
                                   .password("password1")
                                   .nickname("name1")
-                                  .profile("profile1")
                                   .emailAuthorized(false)
                                   .build();
 
