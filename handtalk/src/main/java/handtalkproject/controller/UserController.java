@@ -34,10 +34,10 @@ public class UserController {
 
     private final UserService userService;
     private final EmailService emailService;
+
     private final AwsS3Service awsS3Service;
 
     private final HttpSession session;
-
 
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
