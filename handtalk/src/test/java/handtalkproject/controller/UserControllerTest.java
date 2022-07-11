@@ -65,7 +65,7 @@ class UserControllerTest {
         when(userService.save(any()))
                 .thenReturn(userSignUpDto.toEntity(imageUrl));
 
-        MockMultipartFile image = new MockMultipartFile("files", "maenji.jpeg", "image/jpeg", new FileInputStream("/Users/chaesang-yeob/Desktop/hand-talk-be/handtalk/src/main/resources/maenji.png"));
+        MockMultipartFile image = new MockMultipartFile("files", "maenji.jpeg", "image/jpeg", new FileInputStream("../handtalk/src/main/resources/maenji.png"));
 
         mockMvc.perform(multipart("/users/signup")
                                 .file(image)
