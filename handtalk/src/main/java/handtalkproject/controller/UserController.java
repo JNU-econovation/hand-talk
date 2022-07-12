@@ -75,4 +75,10 @@ public class UserController {
         }
         return userService.login(userSignInDto.toEntity());
     }
+
+    @ApiOperation(value = "로그아웃", notes = "로그아웃 요청")
+    @GetMapping("/logout")
+    public void logout() {
+        session.invalidate();
+    }
 }
