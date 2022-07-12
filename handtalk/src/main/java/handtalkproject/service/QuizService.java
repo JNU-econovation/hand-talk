@@ -58,7 +58,5 @@ public class QuizService {
                                                                      .filter(wrongQuizHandTalk -> wrongQuizHandTalk.getHandTalk()
                                                                                                                    .isDay(day))
                                                                      .collect(Collectors.toList());
-
-
     }
 }
