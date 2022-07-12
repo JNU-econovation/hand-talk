@@ -2,12 +2,11 @@ package handtalkproject.service;
 
 import handtalkproject.domain.entity.User;
 import handtalkproject.exception.DuplicatedEmailException;
+import handtalkproject.exception.NoSuchUserException;
 import handtalkproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
 
 @Service
 @Slf4j
@@ -30,6 +29,6 @@ public class UserService {
                       .stream()
                       .filter(u -> u.canLogin(user))
                       .findFirst()
-                      .orElseThrow(NoSuchElementException::new);
+                      .orElseThrow(NoSuchUserException::new);
     }
 }
