@@ -2,6 +2,7 @@ package handtalkproject.service;
 
 import handtalkproject.domain.dto.UserSignInDto;
 import handtalkproject.domain.entity.User;
+import handtalkproject.exception.NoSuchUserException;
 import handtalkproject.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -50,20 +51,19 @@ class UserServiceTest {
     @DisplayName("이미 존재하는 이메일로 회원가입을 시도할 때 회원가입이 안되도록 하는지 테스트")
     void duplicatedEmailsignUp() {
         //given
-        //when
         User duplicatedUser = User.builder()
                                   .email("email1")
                                   .password("password1")
                                   .nickname("name1")
                                   .emailAuthorized(false)
                                   .build();
-
+        //when
         //then
         assertThatThrownBy(() -> userService.save(duplicatedUser)).isInstanceOf(RuntimeException.class);
     }
 
     @Test
-    @DisplayName("로그인이 잘 되는지 테스트")
+    @DisplayName("회원가입이 된 사용자로 로그인을 시도할 때 로그인이 잘 되는지 테스트")
     void login() {
         //given
         UserSignInDto userSignInDto = UserSignInDto.builder()
@@ -78,5 +78,21 @@ class UserServiceTest {
 
         //then
         assertThat(savedUser).isEqualTo(loginUser);
+    }
+
+    @Test
+    @DisplayName("회원가입이 되어있지 않은 사용자로 로그인을 시도할 떄 로그인이 안되는지 테스트")
+    void login_failed() {
+        //given
+        UserSignInDto userSignInDto = UserSignInDto.builder()
+                                                   .email("email2")
+                                                   .password("password2")
+                                                   .build();
+
+        User inputUser = userSignInDto.toEntity();
+
+        //when
+        //then
+        assertThatThrownBy(() -> userService.login(inputUser)).isInstanceOf(NoSuchUserException.class);
     }
 }
