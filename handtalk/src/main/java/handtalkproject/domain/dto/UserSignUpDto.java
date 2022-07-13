@@ -2,11 +2,11 @@ package handtalkproject.domain.dto;
 
 import handtalkproject.domain.entity.User;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserSignUpDto {
     private String email;
     private String password;
