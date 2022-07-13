@@ -12,11 +12,6 @@ public class JavaMailSenderConfig {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-//        mailSender.setHost("smtp.gmail.com");
-//        mailSender.setPort(587);
-//
-//        mailSender.setUsername("saint6839@gmail.com");
-//        mailSender.setPassword("delta9454@");
 
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
@@ -25,12 +20,7 @@ public class JavaMailSenderConfig {
         mailSender.setDefaultEncoding("utf-8");
 
         Properties properties = mailSender.getJavaMailProperties();
-        //네이버
-        properties.put("mail.smtps.ssl.checkserveridentity", "true");
-        properties.put("mail.smtps.ssl.trust", "*");
-        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
-        //구글
         properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
