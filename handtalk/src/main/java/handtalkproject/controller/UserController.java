@@ -3,6 +3,7 @@ package handtalkproject.controller;
 import handtalkproject.domain.dto.UserSignInDto;
 import handtalkproject.domain.dto.UserSignUpDto;
 import handtalkproject.domain.entity.User;
+import handtalkproject.exception.DuplicatedEmailException;
 import handtalkproject.exception.KeyNotMatchedException;
 import handtalkproject.service.AwsS3Service;
 import handtalkproject.service.EmailService;
@@ -14,10 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -58,7 +56,7 @@ public class UserController {
             @ApiImplicitParam(name = "profileImage", value = "사용자 프로필 사진 파일")
     } )
     @PostMapping("/signup")
-    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) throws KeyNotMatchedException {
+    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) {
         String imageUrl = awsS3Service.uploadProfile(profileImageFile);
 
         if (userSignUpDto.isEmailAuthorized()) {
@@ -80,5 +78,20 @@ public class UserController {
     @GetMapping("/logout")
     public void logout() {
         session.invalidate();
+    }
+
+    @ExceptionHandler(DuplicatedEmailException.class)
+    public String catchDuplicatedEmailException(DuplicatedEmailException exception) {
+        return exception.getMessage();
+    }
+
+    @ExceptionHandler(KeyNotMatchedException.class)
+    public String catchKeyNotMatched(KeyNotMatchedException exception) {
+        return exception.getMessage();
+    }
+
+    @ExceptionHandler({MessagingException.class, UnsupportedEncodingException.class})
+    public String catchEmailException(Exception exception) {
+        return exception.getMessage();
     }
 }

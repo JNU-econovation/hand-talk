@@ -10,10 +10,7 @@ import handtalkproject.utils.UserSessionUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -60,5 +57,10 @@ public class QuizController {
 
     public User getLoginedUser() {
         return (User)session.getAttribute(UserSessionUtils.USER_SESSION_KEY);
+    }
+
+    @ExceptionHandler(NoAuthenticationException.class)
+    public String noAuth(NoAuthenticationException exception) {
+        return exception.getMessage();
     }
 }
