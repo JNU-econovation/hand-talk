@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "로그인", notes = "로그인 요청")
-    @PostMapping("/login")
+    @GetMapping("/login")
     public User login(UserSignInDto userSignInDto) {
         if (session.getAttribute(UserSessionUtils.USER_SESSION_KEY) == null) {
             session.setAttribute(UserSessionUtils.USER_SESSION_KEY, userSignInDto);
