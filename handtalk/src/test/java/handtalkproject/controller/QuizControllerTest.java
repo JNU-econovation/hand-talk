@@ -70,8 +70,8 @@ class QuizControllerTest {
     void loginedShowMultipleChoice() throws Exception {
         //given
         QuizMultipleChoiceDto quizMultipleChoiceDto = new QuizMultipleChoiceDto(handtalk);
-        quizMultipleChoiceDto.addWrongMulitipleChoice("wrong1");
-        quizMultipleChoiceDto.addWrongMulitipleChoice("wrong2");
+        quizMultipleChoiceDto.addWrongMultipleChoice("wrong1");
+        quizMultipleChoiceDto.addWrongMultipleChoice("wrong2");
 
         when((User) session.getAttribute(any())).thenReturn(user);
         when(quizService.showQuizMultipleChoices(1)).thenReturn(quizMultipleChoiceDto);

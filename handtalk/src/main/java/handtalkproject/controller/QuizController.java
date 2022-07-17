@@ -25,7 +25,6 @@ public class QuizController {
     private final QuizService quizService;
     private final HttpSession session;
 
-
     @ApiOperation(value = "수어->단어 퀴즈에서 Day에 따른 문제를 출제해 줌")
     @GetMapping("/quiz/hand-to-korean/{day}")
     public QuizMultipleChoiceDto showMultipleChoice(@PathVariable int day) {
@@ -34,7 +33,6 @@ public class QuizController {
         }
         throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
     }
-
 
     @ApiOperation(value = "수어-단어 퀴즈에서 문제를 틀렸을 경우 오답노트에 저장 함")
     @PostMapping("/quiz/hand-to-korean/wrong")

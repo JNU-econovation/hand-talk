@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -56,8 +55,8 @@ class QuizServiceTest {
         HandTalk handTalk3 = generateDummyHandTalk();
 
         QuizMultipleChoiceDto quizMultipleChoiceDto = new QuizMultipleChoiceDto(handTalk1);
-        quizMultipleChoiceDto.addWrongMulitipleChoice(handTalk2.getHandtalkValue());
-        quizMultipleChoiceDto.addWrongMulitipleChoice(handTalk3.getHandtalkValue());
+        quizMultipleChoiceDto.addWrongMultipleChoice(handTalk2.getHandtalkValue());
+        quizMultipleChoiceDto.addWrongMultipleChoice(handTalk3.getHandtalkValue());
 
         handTalkRepository.save(handTalk1);
         handTalkRepository.save(handTalk2);

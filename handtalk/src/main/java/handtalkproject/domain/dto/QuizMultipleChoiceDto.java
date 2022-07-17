@@ -27,7 +27,7 @@ public class QuizMultipleChoiceDto {
      * @param handtalkValue
      * 세 가지 선지를 틀린 답으로 줄 것이기 때문에, 나머지 선지로 줄 단어들은 public 메서드의 인자로 받아와 List에 추가한다.
      */
-    public void addWrongMulitipleChoice(String handtalkValue) {
+    public void addWrongMultipleChoice(String handtalkValue) {
         multipleChoices.add(handtalkValue);
     }
 }

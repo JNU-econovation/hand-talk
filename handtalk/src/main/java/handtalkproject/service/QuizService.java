@@ -37,7 +37,7 @@ public class QuizService {
 
         // 나머지 오답에 해당하는 객관식 선지에 들어갈 단어들을 QuizMultipleChoiceDto 객체에 저장
         for (int i = WRONG_INDEX; i <= WRONG_INDEX2; i++) {
-            quizMultiChoiceDto.addWrongMulitipleChoice(datas.get(i).getHandtalkValue());
+            quizMultiChoiceDto.addWrongMultipleChoice(datas.get(i).getHandtalkValue());
         }
 
         return quizMultiChoiceDto;
