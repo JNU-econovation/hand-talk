@@ -1,5 +1,6 @@
 package handtalkproject.service;
 
+import handtalkproject.domain.dto.LearningHandTalkDto;
 import handtalkproject.domain.entity.Day;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.repository.HandTalkRepository;
@@ -41,10 +42,10 @@ class LearningServiceTest {
         handTalkRepository.save(handtalk2);
 
         //when
-        List<HandTalk> learningData = learningService.getLearningData(1);
+        List<LearningHandTalkDto> learningData = learningService.getLearningData(1);
 
         //then
         assertThat(learningData.size())
-                  .isEqualTo(2);
+                  .isEqualTo(3);
     }
 }
