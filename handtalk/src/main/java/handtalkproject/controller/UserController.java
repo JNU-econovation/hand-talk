@@ -57,9 +57,8 @@ public class UserController {
     } )
     @PostMapping("/signup")
     public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) {
-        String imageUrl = awsS3Service.uploadProfile(profileImageFile);
-
         if (userSignUpDto.isEmailAuthorized()) {
+            String imageUrl = awsS3Service.uploadProfile(profileImageFile);
             return userService.save(userSignUpDto.toEntity(imageUrl)); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환, 이미지 주소 엔티티에 저장
         }
         throw new KeyNotMatchedException(KEY_NOT_MATCHED_MESSAGE);
