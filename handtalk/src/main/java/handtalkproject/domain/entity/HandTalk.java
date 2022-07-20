@@ -1,5 +1,6 @@
 package handtalkproject.domain.entity;
 
+import handtalkproject.domain.dto.LearningHandTalkDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,5 +42,12 @@ public class HandTalk {
 
     public boolean isDay(int day) {
         return this.day.getDay() == day;
+    }
+
+    public LearningHandTalkDto toLearningHandTalkDto() {
+        return LearningHandTalkDto.builder()
+                                  .videoUrl(videoUrl)
+                                  .handtalkValue(handtalkValue)
+                                  .build();
     }
 }

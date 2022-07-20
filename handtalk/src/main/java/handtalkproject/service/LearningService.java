@@ -1,5 +1,6 @@
 package handtalkproject.service;
 
+import handtalkproject.domain.dto.LearningHandTalkDto;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.repository.HandTalkRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,11 @@ import java.util.stream.Collectors;
 public class LearningService {
     private final HandTalkRepository handTalkRepository;
 
-    public List<HandTalk> getLearningData(int day) {
+    public List<LearningHandTalkDto> getLearningData(int day) {
         return handTalkRepository.findAll()
-                          .stream()
-                          .filter(handTalk -> handTalk.isDay(day))
-                          .collect(Collectors.toCollection(ArrayList::new));
+                                 .stream()
+                                 .filter(handTalk -> handTalk.isDay(day))
+                                 .map(HandTalk::toLearningHandTalkDto)
+                                 .collect(Collectors.toCollection(ArrayList::new));
     }
 }

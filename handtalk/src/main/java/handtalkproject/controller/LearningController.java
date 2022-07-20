@@ -1,6 +1,6 @@
 package handtalkproject.controller;
 
-import handtalkproject.domain.entity.HandTalk;
+import handtalkproject.domain.dto.LearningHandTalkDto;
 import handtalkproject.domain.entity.User;
 import handtalkproject.exception.NoAuthenticationException;
 import handtalkproject.service.LearningService;
@@ -31,7 +31,7 @@ public class LearningController {
     @ApiOperation(value = "Day에 해당하는 수어 동작과 단어를 반환")
     @ApiImplicitParam(name = "day", value = "사용자가 선택한 day 값")
     @GetMapping("/learning/{day}")
-    public List<HandTalk> getLearningData(@PathVariable int day) {
+    public List<LearningHandTalkDto> getLearningData(@PathVariable int day) {
         User loginedUser = getLoginedUser();
         if (loginedUser != null) {
             return learningService.getLearningData(day);

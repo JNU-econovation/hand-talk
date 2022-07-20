@@ -1,5 +1,6 @@
 package handtalkproject.controller;
 
+import handtalkproject.domain.dto.LearningHandTalkDto;
 import handtalkproject.domain.entity.Day;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.domain.entity.User;
@@ -49,12 +50,13 @@ class LearningControllerTest {
         //given
         Day day = new Day(1);
 
-        HandTalk handtalk = HandTalk.builder()
-                                 .day(day)
-                                 .build();
+        LearningHandTalkDto learningHandTalkDto = LearningHandTalkDto.builder()
+                                                                     .videoUrl("videoUrl")
+                                                                     .handtalkValue("handtalkValue")
+                                                                     .build();
 
-        List<HandTalk> handTalks = new ArrayList<>();
-        handTalks.add(handtalk);
+        List<LearningHandTalkDto> learningHandTalkDtos = new ArrayList<>();
+        learningHandTalkDtos.add(learningHandTalkDto);
 
         User user = User.builder()
                          .profile("profile")
@@ -65,7 +67,7 @@ class LearningControllerTest {
                          .build();
 
         when((User) session.getAttribute(any())).thenReturn(user);
-        when(learningService.getLearningData(1)).thenReturn(handTalks);
+        when(learningService.getLearningData(1)).thenReturn(learningHandTalkDtos);
 
         //when
         //then
