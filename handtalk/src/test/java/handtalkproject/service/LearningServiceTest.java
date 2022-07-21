@@ -46,6 +46,7 @@ class LearningServiceTest {
 
         //then
         assertThat(learningData.size())
-                  .isEqualTo(3);
+                  .isEqualTo(2);
     }
+
 }

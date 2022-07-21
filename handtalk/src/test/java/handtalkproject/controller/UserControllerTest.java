@@ -94,7 +94,6 @@ class UserControllerTest {
         User user = createUser();
         when(userService.login(any())).thenReturn(user);
 
-        when(session.getAttribute(any())).thenReturn(null);
         doNothing().when(session).setAttribute(any(), any());
 
         //when
