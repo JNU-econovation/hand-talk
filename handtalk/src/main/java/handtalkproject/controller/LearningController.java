@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.transform.Result;
 import java.util.List;
 
 @RestController
@@ -32,11 +33,7 @@ public class LearningController {
     @ApiImplicitParam(name = "day", value = "사용자가 선택한 day 값")
     @GetMapping("/learning/{day}")
     public List<LearningHandTalkDto> getLearningData(@PathVariable int day) {
-        User loginedUser = getLoginedUser();
-        if (loginedUser != null) {
-            return learningService.getLearningData(day);
-        }
-        throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
+        return learningService.getLearningData(day);
     }
 
     public User getLoginedUser() {
