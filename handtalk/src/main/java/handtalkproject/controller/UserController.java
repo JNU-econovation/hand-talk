@@ -66,11 +66,11 @@ public class UserController {
 
     @ApiOperation(value = "로그인", notes = "로그인 요청")
     @GetMapping("/login")
-    public User login(UserSignInDto userSignInDto) {
+    public UserSignInDto login(UserSignInDto userSignInDto) {
         User user = userService.login(userSignInDto.toEntity());
 //        session.setAttribute(UserSessionUtils.USER_SESSION_KEY, user);
 
-        return user;
+        return user.toDto();
     }
 
 //    @ApiOperation(value = "로그아웃", notes = "로그아웃 요청")

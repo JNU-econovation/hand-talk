@@ -1,5 +1,6 @@
 package handtalkproject.domain.entity;
 
+import handtalkproject.domain.dto.UserSignInDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -37,6 +38,13 @@ public class User {
     }
 
     public boolean canLogin(User user) {
-        return email.equals(user.getEmail()) && password.equals(user.getPassword());
+        return this.email.equals(user.getEmail()) && this.password.equals(user.getPassword());
+    }
+
+    public UserSignInDto toDto() {
+        return UserSignInDto.builder()
+                            .email(email)
+                            .password(password)
+                            .build();
     }
 }
