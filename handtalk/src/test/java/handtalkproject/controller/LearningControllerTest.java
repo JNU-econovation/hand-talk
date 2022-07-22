@@ -44,37 +44,37 @@ class LearningControllerTest {
                                  .build();
     }
 
-    @Test
-    @DisplayName("day에 해당하는 수어를 호출하는 메서드가 잘 호출 되는지 테스트")
-    void getLearningData() throws Exception {
-        //given
-        Day day = new Day(1);
-
-        LearningHandTalkDto learningHandTalkDto = LearningHandTalkDto.builder()
-                                                                     .videoUrl("videoUrl")
-                                                                     .handtalkValue("handtalkValue")
-                                                                     .build();
-
-        List<LearningHandTalkDto> learningHandTalkDtos = new ArrayList<>();
-        learningHandTalkDtos.add(learningHandTalkDto);
-
-        User user = User.builder()
-                         .profile("profile")
-                         .email("email")
-                         .nickname("nickname")
-                         .password("password")
-                         .emailAuthorized(true)
-                         .build();
-
-        when((User) session.getAttribute(any())).thenReturn(user);
-        when(learningService.getLearningData(1)).thenReturn(learningHandTalkDtos);
-
-        //when
-        //then
-        mockMvc.perform(get("/learning/{day}",day.getDay()))
-               .andDo(print())
-               .andExpect(status().isOk());
-    }
+//    @Test
+//    @DisplayName("day에 해당하는 수어를 호출하는 메서드가 잘 호출 되는지 테스트")
+//    void getLearningData() throws Exception {
+//        //given
+//        Day day = new Day(1);
+//
+//        LearningHandTalkDto learningHandTalkDto = LearningHandTalkDto.builder()
+//                                                                     .videoUrl("videoUrl")
+//                                                                     .handtalkValue("handtalkValue")
+//                                                                     .build();
+//
+//        List<LearningHandTalkDto> learningHandTalkDtos = new ArrayList<>();
+//        learningHandTalkDtos.add(learningHandTalkDto);
+//
+//        User user = User.builder()
+//                         .profile("profile")
+//                         .email("email")
+//                         .nickname("nickname")
+//                         .password("password")
+//                         .emailAuthorized(true)
+//                         .build();
+//
+//        when((User) session.getAttribute(any())).thenReturn(user);
+//        when(learningService.getLearningData(1)).thenReturn(learningHandTalkDtos);
+//
+//        //when
+//        //then
+//        mockMvc.perform(get("/learning/{day}",day.getDay()))
+//               .andDo(print())
+//               .andExpect(status().isOk());
+//    }
 
 
 }

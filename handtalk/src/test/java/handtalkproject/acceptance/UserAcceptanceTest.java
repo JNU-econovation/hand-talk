@@ -61,36 +61,36 @@ public class UserAcceptanceTest {
         );
     }
 
-    @Test
-    @DisplayName("회원가입이 되어있는 유저 이메일과 패스워드로 로그인이 잘 되는지 테스트")
-    void loginTest() {
-        //given
-        UserSignInDto userSignInDto = UserSignInDto.builder()
-                                                   .email("saint6839@gmail.com")
-                                                   .password("password")
-                                                   .build();
-
-        //when
-        User user = userController.login(userSignInDto);
-
-        //then
-        assertThat(userSignInDto.getEmail()).isEqualTo(user.getEmail());
-    }
-
-    @Test
-    @DisplayName("로그아웃이 잘 되는지 테스트")
-    void logoutTest() {
-        //given
-        UserSignInDto userSignInDto = UserSignInDto.builder()
-                                                   .email("saint6839@gmail.com")
-                                                   .password("password")
-                                                   .build();
-        userController.login(userSignInDto);
-
-        //when
-        userController.logout();
-
-        //then
-        assertThat(httpSession.getAttribute(UserSessionUtils.USER_SESSION_KEY)).isNull();
-    }
+//    @Test
+//    @DisplayName("회원가입이 되어있는 유저 이메일과 패스워드로 로그인이 잘 되는지 테스트")
+//    void loginTest() {
+//        //given
+//        UserSignInDto userSignInDto = UserSignInDto.builder()
+//                                                   .email("saint6839@gmail.com")
+//                                                   .password("password")
+//                                                   .build();
+//
+//        //when
+//        User user = userController.login(userSignInDto);
+//
+//        //then
+//        assertThat(userSignInDto.getEmail()).isEqualTo(user.getEmail());
+//    }
+//
+//    @Test
+//    @DisplayName("로그아웃이 잘 되는지 테스트")
+//    void logoutTest() {
+//        //given
+//        UserSignInDto userSignInDto = UserSignInDto.builder()
+//                                                   .email("saint6839@gmail.com")
+//                                                   .password("password")
+//                                                   .build();
+//        userController.login(userSignInDto);
+//
+//        //when
+//        userController.logout();
+//
+//        //then
+//        assertThat(httpSession.getAttribute(UserSessionUtils.USER_SESSION_KEY)).isNull();
+//    }
 }
