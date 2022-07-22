@@ -73,7 +73,7 @@ class QuizControllerTest {
         quizMultipleChoiceDto.addWrongMultipleChoice("wrong1");
         quizMultipleChoiceDto.addWrongMultipleChoice("wrong2");
 
-        when((User) session.getAttribute(any())).thenReturn(user);
+//        when((User) session.getAttribute(any())).thenReturn(user);
         when(quizService.showQuizMultipleChoices(1)).thenReturn(quizMultipleChoiceDto);
 
         //when
@@ -87,7 +87,7 @@ class QuizControllerTest {
     @DisplayName("오답을 저장하는 요청이 들어왔을때 요청이 잘 들어오는지 테스트")
     void saveWrongQuizHandTalk() throws Exception {
         //given
-        when((User) session.getAttribute(anyString())).thenReturn(user);
+//        when((User) session.getAttribute(anyString())).thenReturn(user);
         doNothing().when(quizService)
                    .saveWrongQuizHandTalk(any());
         //when
@@ -107,7 +107,7 @@ class QuizControllerTest {
         List<WrongQuizHandTalk> wrongQuizHandTalks = new ArrayList<>();
         wrongQuizHandTalks.add(new WrongQuizHandTalk());
 
-        when((User) session.getAttribute(anyString())).thenReturn(user);
+//        when((User) session.getAttribute(anyString())).thenReturn(user);
         when(quizService.showAllWrongQuizHandtalks(anyInt())).thenReturn(wrongQuizHandTalks);
 
         //when
