@@ -35,7 +35,7 @@ public class UserController {
 
     private final AwsS3Service awsS3Service;
 
-    private final HttpSession session;
+//    private final HttpSession session;
 
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
@@ -68,16 +68,16 @@ public class UserController {
     @GetMapping("/login")
     public User login(UserSignInDto userSignInDto) {
         User user = userService.login(userSignInDto.toEntity());
-        session.setAttribute(UserSessionUtils.USER_SESSION_KEY, user);
+//        session.setAttribute(UserSessionUtils.USER_SESSION_KEY, user);
 
         return user;
     }
 
-    @ApiOperation(value = "로그아웃", notes = "로그아웃 요청")
-    @GetMapping("/logout")
-    public void logout() {
-        session.invalidate();
-    }
+//    @ApiOperation(value = "로그아웃", notes = "로그아웃 요청")
+//    @GetMapping("/logout")
+//    public void logout() {
+//        session.invalidate();
+//    }
 
     @ExceptionHandler(DuplicatedEmailException.class)
     public String catchDuplicatedEmailException(DuplicatedEmailException exception) {

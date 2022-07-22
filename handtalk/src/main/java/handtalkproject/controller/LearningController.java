@@ -27,7 +27,7 @@ public class LearningController {
     private static final String NO_AUTHENTICATION_MESSAGE = "로그인이 필요한 서비스 입니다.";
 
     private final LearningService learningService;
-    private final HttpSession session;
+//    private final HttpSession session;
 
     @ApiOperation(value = "Day에 해당하는 수어 동작과 단어를 반환")
     @ApiImplicitParam(name = "day", value = "사용자가 선택한 day 값")
@@ -36,9 +36,9 @@ public class LearningController {
         return learningService.getLearningData(day);
     }
 
-    public User getLoginedUser() {
-        return (User) session.getAttribute(UserSessionUtils.USER_SESSION_KEY);
-    }
+//    public User getLoginedUser() {
+//        return (User) session.getAttribute(UserSessionUtils.USER_SESSION_KEY);
+//    }
 
     @ExceptionHandler(NoAuthenticationException.class)
     public String noAuth(NoAuthenticationException exception) {

@@ -77,7 +77,7 @@ class QuizServiceTest {
         HandTalk handTalk = generateDummyHandTalk();
 
         //when
-        quizService.saveWrongQuizHandTalk(user, handTalk);
+        quizService.saveWrongQuizHandTalk(handTalk);
 
         //then
         WrongQuizHandTalk result = wrongQuizHandTalkRepository.findByHandTalk(handTalk)
@@ -99,7 +99,7 @@ class QuizServiceTest {
         wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
 
         //when
-        List<WrongQuizHandTalk> wrongQuizHandTalks = quizService.showAllWrongQuizHandtalks(user, 1);
+        List<WrongQuizHandTalk> wrongQuizHandTalks = quizService.showAllWrongQuizHandtalks(1);
 
         //then
         assertThat(wrongQuizHandTalks.get(0)

@@ -89,7 +89,7 @@ class QuizControllerTest {
         //given
         when((User) session.getAttribute(anyString())).thenReturn(user);
         doNothing().when(quizService)
-                   .saveWrongQuizHandTalk(any(), any());
+                   .saveWrongQuizHandTalk(any());
         //when
         //then
         mockMvc.perform(post("/quiz/hand-to-korean/wrong")
@@ -108,7 +108,7 @@ class QuizControllerTest {
         wrongQuizHandTalks.add(new WrongQuizHandTalk());
 
         when((User) session.getAttribute(anyString())).thenReturn(user);
-        when(quizService.showAllWrongQuizHandtalks(any(), anyInt())).thenReturn(wrongQuizHandTalks);
+        when(quizService.showAllWrongQuizHandtalks(anyInt())).thenReturn(wrongQuizHandTalks);
 
         //when
         //then
