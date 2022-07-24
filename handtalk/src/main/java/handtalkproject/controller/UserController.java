@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 @Api(value = "사용자와 관련된 기능을 수행하는 컨트롤러")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private static final String KEY_NOT_MATCHED_MESSAGE = "이메일 인증번호가 일치하지 않습니다.";
 

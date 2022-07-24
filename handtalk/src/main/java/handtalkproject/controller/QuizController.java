@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "수어퀴즈와 관련된 기능을 수행하는 컨트롤러")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class QuizController {
     private static final String NO_AUTHENTICATION_MESSAGE = "로그인이 필요한 서비스 입니다.";
 
