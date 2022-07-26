@@ -8,7 +8,6 @@ import handtalkproject.exception.KeyNotMatchedException;
 import handtalkproject.service.AwsS3Service;
 import handtalkproject.service.EmailService;
 import handtalkproject.service.UserService;
-import handtalkproject.utils.UserSessionUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @RestController
@@ -41,7 +39,7 @@ public class UserController {
     @ApiOperation(value = "입력된 이메일로 인증번호를 보냄")
     @ApiImplicitParam(name = "email", value = "이메일 인증 번호를 보낼 이메일 주소")
     @PostMapping("/email-auth")
-    public void askEmailAuthKey(String email) throws MessagingException, UnsupportedEncodingException {
+    public void askEmailAuthKey(@RequestBody String email) throws MessagingException, UnsupportedEncodingException {
         emailService.sendSimpleMessage(email, "손말잇기 회원가입 인증코드입니다.");
     }
 
@@ -57,7 +55,7 @@ public class UserController {
             @ApiImplicitParam(name = "profileImage", value = "사용자 프로필 사진 파일")
     } )
     @PostMapping("/signup")
-    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile) {
+    public User create(@RequestBody UserSignUpDto userSignUpDto, MultipartFile profileImageFile) {
         if (userSignUpDto.isEmailAuthorized()) {
             String imageUrl = awsS3Service.uploadProfile(profileImageFile);
             return userService.save(userSignUpDto.toEntity(imageUrl)); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환, 이미지 주소 엔티티에 저장

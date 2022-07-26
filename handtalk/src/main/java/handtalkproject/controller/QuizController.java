@@ -2,17 +2,14 @@ package handtalkproject.controller;
 
 import handtalkproject.domain.dto.QuizMultipleChoiceDto;
 import handtalkproject.domain.dto.WrongQuizHandTalkDto;
-import handtalkproject.domain.entity.User;
 import handtalkproject.domain.entity.WrongQuizHandTalk;
 import handtalkproject.exception.NoAuthenticationException;
 import handtalkproject.service.QuizService;
-import handtalkproject.utils.UserSessionUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -37,7 +34,7 @@ public class QuizController {
 
     @ApiOperation(value = "수어-단어 퀴즈에서 문제를 틀렸을 경우 오답노트에 저장 함")
     @PostMapping("/quiz/hand-to-korean/wrong")
-    public void saveWrongQuizHandTalk(WrongQuizHandTalkDto wrongQuizHandTalkDto) {
+    public void saveWrongQuizHandTalk(@RequestBody WrongQuizHandTalkDto wrongQuizHandTalkDto) {
 //        if(getLoginedUser() != null) {
             quizService.saveWrongQuizHandTalk(wrongQuizHandTalkDto.toEntity());
 //        } else {
