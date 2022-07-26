@@ -11,6 +11,9 @@ public class WrongQuizHandTalkDto {
     private String videoUrl;
     private String handtalkValue;
 
+    public WrongQuizHandTalkDto() {
+    }
+
     @Builder
     public WrongQuizHandTalkDto(int day, String videoUrl, String handtalkValue) {
         this.day = day;

@@ -1,6 +1,8 @@
 package handtalkproject.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import handtalkproject.domain.dto.QuizMultipleChoiceDto;
+import handtalkproject.domain.dto.WrongQuizHandTalkDto;
 import handtalkproject.domain.entity.Day;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.domain.entity.User;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -91,11 +94,19 @@ class QuizControllerTest {
         doNothing().when(quizService)
                    .saveWrongQuizHandTalk(any());
         //when
+        ObjectMapper objectMapper = new ObjectMapper();
+        WrongQuizHandTalkDto wrongQuizHandTalkDto = WrongQuizHandTalkDto.builder()
+                                                                        .day(1)
+                                                                        .handtalkValue("테스트 수어")
+                                                                        .videoUrl("테스트 비디오 url")
+                                                                        .build();
+
+        String data = objectMapper.writeValueAsString(wrongQuizHandTalkDto);
+
         //then
         mockMvc.perform(post("/quiz/hand-to-korean/wrong")
-                                .param("day", String.valueOf(1))
-                                .param("videoUrl", "videoUrl")
-                                .param("handtalkValue", "handtalkValue"))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(data))
                .andDo(print())
                .andExpect(status().isOk());
     }

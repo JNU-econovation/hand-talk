@@ -1,5 +1,6 @@
 package handtalkproject.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import handtalkproject.domain.dto.UserSignUpDto;
 import handtalkproject.domain.entity.User;
 import handtalkproject.service.AwsS3Service;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -64,14 +66,19 @@ class UserControllerTest {
         when(userService.save(any()))
                 .thenReturn(userSignUpDto.toEntity(imageUrl));
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String data = objectMapper.writeValueAsString(userSignUpDto);
+
         MockMultipartFile image = new MockMultipartFile("files", "maenji.jpeg", "image/jpeg", new FileInputStream("../handtalk/src/main/resources/maenji.png"));
 
         mockMvc.perform(multipart("/users/signup")
                                 .file(image)
-                                .param("email", user.getEmail())
-                                .param("password", user.getPassword())
-                                .param("nickname", user.getNickname())
-                                .param("emailAuthorized", String.valueOf(user.isEmailAuthorized()))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(data)
+//                                .param("email", user.getEmail())
+//                                .param("password", user.getPassword())
+//                                .param("nickname", user.getNickname())
+//                                .param("emailAuthorized", String.valueOf(user.isEmailAuthorized()))
                )
                .andDo(print())
                .andExpect(status().isOk());
