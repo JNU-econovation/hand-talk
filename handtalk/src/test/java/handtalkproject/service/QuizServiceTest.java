@@ -100,10 +100,16 @@ class QuizServiceTest {
 
         //when
         List<WrongQuizHandTalk> wrongQuizHandTalks = quizService.showAllWrongQuizHandtalks(1);
+        for (WrongQuizHandTalk quizHandTalk : wrongQuizHandTalks) {
+            System.out.println(quizHandTalk.getHandTalk().getHandtalkValue());
+        }
 
         //then
-        assertThat(wrongQuizHandTalks.get(0)
-                                     .isSameUser(user)).isTrue();
+        assertThat(wrongQuizHandTalks.stream()
+                                     .filter(wh -> wh.getHandTalk()
+                                                     .getHandtalkValue()
+                                                     .equals("수어 단어1"))
+                                     .findAny()).isNotEmpty();
     }
     HandTalk generateDummyHandTalk() {
         Day day = new Day(1);
