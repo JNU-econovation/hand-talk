@@ -17,11 +17,11 @@ public class WrongQuizHandTalk {
     @Column(name = "wrongQuizHandTalk_id", nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "handtalk_id")
     private HandTalk handTalk;
 
