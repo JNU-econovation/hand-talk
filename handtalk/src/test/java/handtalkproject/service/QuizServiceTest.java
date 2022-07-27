@@ -98,7 +98,7 @@ class QuizServiceTest {
                                                                .user(user)
                                                                .handTalk(handTalk)
                                                                .build();
-        wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
+        quizService.saveWrongQuizHandTalk(handTalk);
 
         //when
         List<WrongQuizHandTalkDto> wrongQuizHandTalkDtos = quizService.showAllWrongQuizHandtalks(1);
@@ -117,8 +117,8 @@ class QuizServiceTest {
 
         return HandTalk.builder()
                        .day(day)
-                       .videoUrl("videoUrl")
-                       .handtalkValue("handtalkValue")
+                       .videoUrl("url1")
+                       .handtalkValue("수어 단어1")
                        .build();
     }
 }
