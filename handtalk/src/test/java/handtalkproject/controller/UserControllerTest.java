@@ -73,12 +73,12 @@ class UserControllerTest {
 
         mockMvc.perform(multipart("/users/signup")
                                 .file(image)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(data)
-//                                .param("email", user.getEmail())
-//                                .param("password", user.getPassword())
-//                                .param("nickname", user.getNickname())
-//                                .param("emailAuthorized", String.valueOf(user.isEmailAuthorized()))
+                                .contentType(MediaType.MULTIPART_FORM_DATA)
+//                                .content(data)
+                                .param("email", user.getEmail())
+                                .param("password", user.getPassword())
+                                .param("nickname", user.getNickname())
+                                .param("emailAuthorized", String.valueOf(user.isEmailAuthorized()))
                )
                .andDo(print())
                .andExpect(status().isOk());
