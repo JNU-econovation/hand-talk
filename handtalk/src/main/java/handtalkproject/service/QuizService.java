@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,10 +45,14 @@ public class QuizService {
     }
 
     public void saveWrongQuizHandTalk(HandTalk handTalk) {
+        HandTalk wrongHandTalk = handTalkRepository.findByVideoUrl(handTalk.getVideoUrl())
+                                                   .orElseThrow(NoSuchElementException::new);
+
         WrongQuizHandTalk wrongQuizHandTalk = WrongQuizHandTalk.builder()
 //                                                               .user(loginedUser)
-                                                               .handTalk(handTalk)
+                                                               .handTalk(wrongHandTalk)
                                                                .build();
+
         wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
     }
 

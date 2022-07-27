@@ -126,7 +126,5 @@ class QuizControllerTest {
         mockMvc.perform(get("/quiz/hand-to-korean/wrong/{day}", 1))
                .andDo(print())
                .andExpect(status().isOk());
-
-
     }
 }

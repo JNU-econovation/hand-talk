@@ -78,13 +78,14 @@ class QuizServiceTest {
         HandTalk handTalk = generateDummyHandTalk();
 
         //when
+        handTalkRepository.save(handTalk);
         quizService.saveWrongQuizHandTalk(handTalk);
 
         //then
         WrongQuizHandTalk result = wrongQuizHandTalkRepository.findByHandTalk(handTalk)
                                                               .get();
 
-        assertThat(result.getHandTalk()).isEqualTo(handTalk);
+        assertThat(result.getHandTalk().getVideoUrl()).isEqualTo(handTalk.getVideoUrl());
     }
 
     @Test
