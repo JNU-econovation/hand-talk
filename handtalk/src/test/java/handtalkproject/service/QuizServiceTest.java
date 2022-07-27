@@ -1,6 +1,7 @@
 package handtalkproject.service;
 
 import handtalkproject.domain.dto.QuizMultipleChoiceDto;
+import handtalkproject.domain.dto.WrongQuizHandTalkDto;
 import handtalkproject.domain.entity.Day;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.domain.entity.User;
@@ -99,15 +100,14 @@ class QuizServiceTest {
         wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
 
         //when
-        List<WrongQuizHandTalk> wrongQuizHandTalks = quizService.showAllWrongQuizHandtalks(1);
-        for (WrongQuizHandTalk quizHandTalk : wrongQuizHandTalks) {
-            System.out.println(quizHandTalk.getHandTalk().getHandtalkValue());
+        List<WrongQuizHandTalkDto> wrongQuizHandTalkDtos = quizService.showAllWrongQuizHandtalks(1);
+        for (WrongQuizHandTalkDto quizHandTalk : wrongQuizHandTalkDtos) {
+            System.out.println(quizHandTalk.getHandtalkValue());
         }
 
         //then
-        assertThat(wrongQuizHandTalks.stream()
-                                     .filter(wh -> wh.getHandTalk()
-                                                     .getHandtalkValue()
+        assertThat(wrongQuizHandTalkDtos.stream()
+                                     .filter(wh -> wh.getHandtalkValue()
                                                      .equals("수어 단어1"))
                                      .findAny()).isNotEmpty();
     }

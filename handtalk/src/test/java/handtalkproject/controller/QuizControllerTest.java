@@ -115,11 +115,11 @@ class QuizControllerTest {
     @DisplayName("Day에 해당하는 오답을 보여달라는 요청이 들어왔을 때 요청에 잘 응답하는지 테스트")
     void showAllWrongQuizHandtalks() throws Exception {
         //given
-        List<WrongQuizHandTalk> wrongQuizHandTalks = new ArrayList<>();
-        wrongQuizHandTalks.add(new WrongQuizHandTalk());
+        List<WrongQuizHandTalkDto> wrongQuizHandTalkDtos = new ArrayList<>();
+        wrongQuizHandTalkDtos.add(new WrongQuizHandTalkDto());
 
 //        when((User) session.getAttribute(anyString())).thenReturn(user);
-        when(quizService.showAllWrongQuizHandtalks(anyInt())).thenReturn(wrongQuizHandTalks);
+        when(quizService.showAllWrongQuizHandtalks(anyInt())).thenReturn(wrongQuizHandTalkDtos);
 
         //when
         //then

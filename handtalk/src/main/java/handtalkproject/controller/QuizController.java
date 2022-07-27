@@ -44,16 +44,9 @@ public class QuizController {
 
     @ApiOperation(value = "수어-단어 퀴즈에서 틀린 오답들을 day별로 보여줌")
     @GetMapping("/quiz/hand-to-korean/wrong/{day}")
-    public List<WrongQuizHandTalk> showAllWrongQuizHandtalks(@PathVariable int day) {
-//        if(getLoginedUser() != null) {
-            return quizService.showAllWrongQuizHandtalks(day);
-//        }
-//        throw new NoAuthenticationException(NO_AUTHENTICATION_MESSAGE);
+    public List<WrongQuizHandTalkDto> showAllWrongQuizHandtalks(@PathVariable int day) {
+        return quizService.showAllWrongQuizHandtalks(day);
     }
-
-//    public User getLoginedUser() {
-//        return (User)session.getAttribute(UserSessionUtils.USER_SESSION_KEY);
-//    }
 
     @ExceptionHandler(NoAuthenticationException.class)
     public String noAuth(NoAuthenticationException exception) {

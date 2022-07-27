@@ -1,6 +1,7 @@
 package handtalkproject.service;
 
 import handtalkproject.domain.dto.QuizMultipleChoiceDto;
+import handtalkproject.domain.dto.WrongQuizHandTalkDto;
 import handtalkproject.domain.entity.HandTalk;
 import handtalkproject.domain.entity.WrongQuizHandTalk;
 import handtalkproject.repository.HandTalkRepository;
@@ -50,12 +51,15 @@ public class QuizService {
         wrongQuizHandTalkRepository.save(wrongQuizHandTalk);
     }
 
-    public List<WrongQuizHandTalk> showAllWrongQuizHandtalks(int day) {
+    public List<WrongQuizHandTalkDto> showAllWrongQuizHandtalks(int day) {
         return wrongQuizHandTalkRepository.findAll()
-                                                                     .stream()
+                                          .stream()
 //                                                                     .filter(wrongQuizHandTalk -> wrongQuizHandTalk.isSameUser(loginedUser))
-                                                                     .filter(wrongQuizHandTalk -> wrongQuizHandTalk.getHandTalk()
-                                                                                                                   .isDay(day))
-                                                                     .collect(Collectors.toList());
+                                          .filter(wrongQuizHandTalk -> wrongQuizHandTalk.getHandTalk()
+                                                                                        .isDay(day))
+                                          .map(WrongQuizHandTalk::toDto)
+                                          .collect(Collectors.toList());
+
+
     }
 }
