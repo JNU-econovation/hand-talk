@@ -14,14 +14,16 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/users")
@@ -58,7 +60,12 @@ public class UserController {
             @ApiImplicitParam(name = "profileImageFile", value = "사용자 프로필 사진 파일", type = "MultipartFile")
     } )
     @PostMapping(value = "/signup")
-    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile, HttpServletRequest request, MultipartHttpServletRequest multipartHttpServletRequest) throws IOException, ServletException {
+    public User create(UserSignUpDto userSignUpDto, MultipartFile profileImageFile, HttpServletRequest request) throws IOException, ServletException {
+
+        ServletInputStream inputStream = request.getInputStream();
+        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+        System.out.println("메시지 바디 =" + messageBody);
+
         if (userSignUpDto.isEmailAuthorized()) {
             String imageUrl = awsS3Service.uploadProfile(profileImageFile);
             return userService.save(userSignUpDto.toEntity(imageUrl)); // 이메일 인증 성공했으므로 emailAuthorized 값 true로 변경하여 User 객체로 반환, 이미지 주소 엔티티에 저장

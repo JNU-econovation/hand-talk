@@ -35,6 +35,9 @@ public class QuizController {
     @ApiOperation(value = "수어-단어 퀴즈에서 문제를 틀렸을 경우 오답노트에 저장 함")
     @PostMapping("/quiz/hand-to-korean/wrong")
     public void saveWrongQuizHandTalk(@RequestBody WrongQuizHandTalkDto wrongQuizHandTalkDto) {
+        System.out.println(wrongQuizHandTalkDto.getDay());
+        System.out.println(wrongQuizHandTalkDto.getHandtalkValue());
+        System.out.println(wrongQuizHandTalkDto.getVideoUrl());
 //        if(getLoginedUser() != null) {
             quizService.saveWrongQuizHandTalk(wrongQuizHandTalkDto.toEntity());
 //        } else {
