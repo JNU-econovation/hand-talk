@@ -98,6 +98,7 @@ class QuizServiceTest {
                                                                .user(user)
                                                                .handTalk(handTalk)
                                                                .build();
+        handTalkRepository.save(handTalk);
         quizService.saveWrongQuizHandTalk(handTalk);
 
         //when
