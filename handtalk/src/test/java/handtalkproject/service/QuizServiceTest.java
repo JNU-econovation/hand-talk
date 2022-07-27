@@ -109,7 +109,7 @@ class QuizServiceTest {
         //then
         assertThat(wrongQuizHandTalkDtos.stream()
                                      .filter(wh -> wh.getHandtalkValue()
-                                                     .equals("수어 단어1"))
+                                                     .equals("수어 단어10"))
                                      .findAny()).isNotEmpty();
     }
     HandTalk generateDummyHandTalk() {
@@ -117,8 +117,8 @@ class QuizServiceTest {
 
         return HandTalk.builder()
                        .day(day)
-                       .videoUrl("url1")
-                       .handtalkValue("수어 단어1")
+                       .videoUrl("url10")
+                       .handtalkValue("수어 단어10")
                        .build();
     }
 }
